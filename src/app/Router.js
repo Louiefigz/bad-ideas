@@ -2,6 +2,8 @@ import React from 'react';
 import {Route, Switch} from 'react-router-dom';
 import MainWrapper from './MainWrapper';
 import Catalog from '../containers/e-commerce/catalog';
+import Layout from '../containers/_layout';
+
 
 
 
@@ -18,6 +20,7 @@ const Router = () => (
 
 const wrappedRoutes = () => (
     <div>
+        <Layout/>
         <div className='container__wrap'>
             <Route path='/' component={BadTest}/>
         </div>
