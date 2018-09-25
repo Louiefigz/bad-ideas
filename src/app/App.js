@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import {Input} from './Input';
-import './App.css';
+import './dist/index.css';
 import Routes from './Routes';
 import { Link } from "react-router-dom";
 import { Nav, Navbar, NavItem } from "react-bootstrap";
