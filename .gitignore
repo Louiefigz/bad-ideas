@@ -10,7 +10,8 @@
 /build
 
 #config
-./src/config
+/src/config
+/src/app/dist/*
 
 # misc
 .DS_Store
