@@ -16,10 +16,18 @@
     "redux": "^4.0.0"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start": "react-scripts start build",
+    "build": "react-scripts build build:css",
+    "build:css": "postcss ./src/app/App.css -o ./src/app/dist/index.css",
     "test": "react-scripts test --env=jsdom",
     "deploy": "aws s3 sync build/ s3://easy-dev-test",
     "eject": "react-scripts eject"
+  },
+  "devDependencies": {
+    "postcss": "^7.0.2",
+    "postcss-cli": "^6.0.0",
+    "postcss-preset-env": "^6.0.6",
+    "react-app-rewire-postcss": "^2.0.0",
+    "react-app-rewired": "^1.6.2"
   }
 }

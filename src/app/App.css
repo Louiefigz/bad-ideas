@@ -1,3 +1,13 @@
+.top-class {
+  width: auto;
+  & .bottom-class {
+    width: auto;
+    & .last-class {
+      width: inherit;
+    }
+  }
+}
+
 .catalog-items__wrap {
   overflow: hidden;
   width: 100%;
@@ -37,14 +47,15 @@
   padding: 40px 30px;
   display: block;
 
-&:hover {
-   text-decoration: none;
+  &:hover {
+    text-decoration: none;
+  }
+}
 
 .catalog-item__title {
   color: #646777;
 }
-}
-}
+
 
 .catalog-item__img-wrap {
   width: 100%;
