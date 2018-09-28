@@ -19,7 +19,19 @@ function UserReducer(state = initialState, action) {
         case 'FAILURE':
           return {...state, error: action.payload}
         case 'SIGN_OUT':
-        debugger
+          return {...state, session: false, user: {}}
+        case 'LOGGED_IN':
+        // We will be checking if the user is currently logged in when we start the app. If there is now session previously, 
+        // we are updating that session to be true.
+       // TODO: add username and email into the session.
+            if(!state.session){
+                let username = action.payload.username;
+                let email = action.payload.attributes.email;
+                return {...state,
+                    session: true
+                  }
+            }
+
           return {...state, session: false, user: {}}
         default:
           return state;

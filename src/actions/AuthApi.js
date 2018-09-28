@@ -13,12 +13,12 @@ class UserApi {
         return Auth.signOut()
     }
     static currentUser() {
-        return Auth.currentSession()
+        return Auth.currentUserInfo()
             .then( response => {
-                debugger
                 return response
             }).catch(error =>{
                 debugger
+                //POssibly return an error message here
             })
     }
 }

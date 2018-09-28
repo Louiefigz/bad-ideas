@@ -31,16 +31,19 @@ export function logOut(history, redirect) {
     }
 }
 
-export function currentUser() {
+export function currentUser(history, redirect) {
     return (dispatch)=> {
         return UserApi.currentUser()
             .then( response =>{
-
-                // debugger
-                // dispatch({
-                //     type: 'LOG_IN', 
-                //     payload: response
-                // })
+                //If we do have a response that is not null, 
+                //set session to true
+                if(response.username){
+                    dispatch({
+                        type: 'LOGGED_IN', 
+                        payload: response
+                    })
+                }
+                history.push(redirect);
             }).catch( error =>{})
     }
 }

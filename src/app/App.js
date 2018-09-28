@@ -17,9 +17,8 @@ class App extends Component {
     // this.userHasAuthenticated(false);
     this.props.logOut(this.props.history, '/login');
   }
-  componentDidMount(){
-    //so soemthing here
-    this.props.currentUser();
+  componentWillMount(){
+    this.props.currentUser(this.props.history, '/');
   }
 
   render() {
@@ -27,6 +26,7 @@ class App extends Component {
     isAuthenticated: this.props.session,
     userHasAuthenticated: this.userHasAuthenticated
   };
+  debugger
     return (
       <div className='App'>
        <h1>Tell us your secrets</h1>
