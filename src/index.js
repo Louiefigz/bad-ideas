@@ -7,8 +7,17 @@ import 'bootstrap/dist/css/bootstrap.css';
 import './app/index.css';
 import App from './app/App';
 import {BrowserRouter} from 'react-router-dom';
+import { createStore, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
+import combineReducers from './reducers/root';
 
 import registerServiceWorker from './registerServiceWorker';
+
+import { Provider } from 'react-redux';
+const store = createStore(combineReducers, applyMiddleware(thunk));
+
+
+
 
 Amplify.configure({
   Auth: {
@@ -34,8 +43,10 @@ Amplify.configure({
   }
 });
 ReactDOM.render(
+  <Provider store={store}>
     <BrowserRouter>
         <App />
-    </BrowserRouter>,
+    </BrowserRouter>
+  </Provider>,
     document.getElementById('root'));
 registerServiceWorker();

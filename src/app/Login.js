@@ -1,8 +1,12 @@
 import React, { Component } from "react";
-import { Auth } from "aws-amplify";
+import { bindActionCreators } from 'redux';
+
+import { connect } from 'react-redux';
+import { loginUser } from '../actions/Auth';
+import { withRouter } from 'react-router';
 
 
-export default class Login extends Component {
+class Login extends Component {
   constructor(props) {
     super(props);
 
@@ -26,18 +30,19 @@ export default class Login extends Component {
     });
   }
 
-  handleSubmit = async event => {
+  handleSubmit = event => {
     event.preventDefault();
-    try {
-      await Auth.signIn(this.state.email, this.state.password);
-      alert("Logged in");
-    } catch (e) {
-      debugger
-      alert(e.message);
+    let credentials = {
+      email: this.state.email, 
+      password: this.state.password      
     }
+    this.props.loginUser(credentials, this.props.history, "/");
   }
 
   render() {
+
+
+
     return (
       <div className="Login">
 
@@ -50,3 +55,12 @@ export default class Login extends Component {
     );
   }
 }
+
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({
+      loginUser: loginUser}, dispatch)
+}
+
+export default withRouter(
+  connect(null, mapDispatchToProps)(Login)
+);

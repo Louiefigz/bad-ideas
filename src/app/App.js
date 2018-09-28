@@ -1,42 +1,37 @@
 import React, { Component, Fragment } from 'react';
-import {Input} from './Input';
-import './dist/index.css';
-import Routes from './Routes';
+import { bindActionCreators } from 'redux';
+import  Routes  from './Routes';
+import { connect } from 'react-redux';
+import { loginUser, logOut, currentUser } from '../actions/Auth';
+
 import { Link } from "react-router-dom";
+import { withRouter } from 'react-router';
+import './index.css';
 import { Nav, Navbar, NavItem } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 
 
-
-
 class App extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      isAuthenticated: false
-    };
+  
+  handleLogout() {
+    // this.userHasAuthenticated(false);
+    this.props.logOut(this.props.history, '/login');
   }
-
-  userHasAuthenticated = authenticated => {
-    this.setState({ isAuthenticated: authenticated });
-  }
-
-  handleLogout = event => {
-    this.userHasAuthenticated(false);
+  componentDidMount(){
+    //so soemthing here
+    this.props.currentUser();
   }
 
   render() {
   const childProps = {
-    isAuthenticated: this.state.isAuthenticated,
+    isAuthenticated: this.props.session,
     userHasAuthenticated: this.userHasAuthenticated
   };
     return (
       <div className='App'>
        <h1>Tell us your secrets</h1>
-          <Input/>
-            {this.state.isAuthenticated
-              ? <NavItem onClick={this.handleLogout}>Logout</NavItem>
+            {this.props.session
+              ? <NavItem onClick={this.handleLogout.bind(this)}>Logout</NavItem>
               : <Fragment>
                   <LinkContainer to="/signup">
                     <NavItem>Signup</NavItem>
@@ -53,4 +48,20 @@ class App extends Component {
   }
 }
 
-export default App;
+const mapStateToProps = (state) => {
+  return { 
+    session: state.user.session 
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({
+      loginUser: loginUser,
+      logOut: logOut, 
+      currentUser: currentUser
+    }, dispatch)
+}
+
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(App)
+);
